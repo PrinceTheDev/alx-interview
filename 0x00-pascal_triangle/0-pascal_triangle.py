@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+0x00-pascal_triangle
+"""
 
 
 def pascal_traingle(n):
