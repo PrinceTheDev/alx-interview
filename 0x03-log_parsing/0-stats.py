@@ -1,6 +1,12 @@
 #!/usr/bin/python3
+"""
+script that reads stdin line by line and computes metrics:
+"""
+
+
 import sys
 import signal
+
 
 def print_stats(total_size, status_counts):
     print(f"File size: {total_size}")
