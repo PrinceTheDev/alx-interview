@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 def isWinner(x, nums):
     """Function to determine the winner of the prime game"""
     if not nums or x < 1:
