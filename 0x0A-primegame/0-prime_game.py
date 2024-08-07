@@ -5,7 +5,8 @@ This project contains a prime game which helps in technical interviews
 
 
 def isWinner(x, nums):
-    # Helper function to find all primes up to max_num using Sieve of Eratosthenes
+    """ Helper function to find all primes up to max_num using Sieve of Eratosthenes
+    """
     def sieve(max_num):
         is_prime = [True] * (max_num + 1)
         is_prime[0] = is_prime[1] = False  # 0 and 1 are not prime numbers
