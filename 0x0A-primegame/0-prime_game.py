@@ -3,6 +3,7 @@
 This project contains a prime game which helps in technical interviews
 """
 
+
 def isWinner(x, nums):
     # Helper function to find all primes up to max_num using Sieve of Eratosthenes
     def sieve(max_num):
