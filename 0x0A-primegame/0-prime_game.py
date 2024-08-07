@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+This project contains a prime game which helps in technical interviews
+"""
+
 
 def isWinner(x, nums):
     """Function to determine the winner of the prime game"""
