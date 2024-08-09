@@ -1,56 +1,68 @@
 #!/usr/bin/python3
-"""Solving N Queens Problem using backtracking"""
+"""
+Solution to the nqueens problem
+"""
 import sys
 
 
-def printSolution(board, n):
-    """Print allocated positions to the queen"""
-    solution = []
+def backtrack(r, n, cols, pos, neg, board):
+    """
+    backtrack function to find solution
+    """
+    if r == n:
+        res = []
+        for l in range(len(board)):
+            for k in range(len(board[l])):
+                if board[l][k] == 1:
+                    res.append([l, k])
+        print(res)
+        return
 
-    for r in range(n):
-        for c in range(n):
-            if c == board[r]:
-                solution.append([r, c])
-    print(solution)
+    for c in range(n):
+        if c in cols or (r + c) in pos or (r - c) in neg:
+            continue
 
+        cols.add(c)
+        pos.add(r + c)
+        neg.add(r - c)
+        board[r][c] = 1
 
-def is_position_safe(board, r, c, row):
-    """Checks if the position is safe for the queen"""
-    return board[r] in (c, c - r + row, r - row + c)
+        backtrack(r+1, n, cols, pos, neg, board)
 
-
-def recursive_solve(board, row, n):
-    """Find all safe positions where the queen can be allocated"""
-    if row == n:
-        printSolution(board, n)
-
-    else:
-        for c in range(n):
-            allowed = True
-            for r in range(row):
-                if is_position_safe(board, r, c, row):
-                    allowed = False
-            if allowed:
-                board[row] = c
-                recursive_solve(board, row + 1, n)
+        cols.remove(c)
+        pos.remove(r + c)
+        neg.remove(r - c)
+        board[r][c] = 0
 
 
-def create_board(size):
-    """Generates the board"""
-    return [0 * size for i in range(size)]
+def nqueens(n):
+    """
+    Solution to nqueens problem
+    Args:
+        n (int): number of queens. Must be >= 4
+    Return:
+        List of lists representing coordinates of each
+        queen for all possible solutions
+    """
+    cols = set()
+    pos_diag = set()
+    neg_diag = set()
+    board = [[0] * n for i in range(n)]
+
+    backtrack(0, n, cols, pos_diag, neg_diag, board)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    n = sys.argv
+    if len(n) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
-    if sys.argv[1].isdigit() is False:
+    try:
+        nn = int(n[1])
+        if nn < 4:
+            print("N must be at least 4")
+            sys.exit(1)
+        nqueens(nn)
+    except ValueError:
         print("N must be a number")
         sys.exit(1)
-    if int(sys.argv[1]) < 4:
-        print("N must be at least 4")
-        sys.exit(1)
-
-    N = int(sys.argv[1])
-    myboard = create_board(N)
-    solutions = recursive_solve(myboard, 0, N)
